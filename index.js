@@ -1,41 +1,45 @@
-var moment = require('moment'); // require
-
-var day = moment()
-
-console.log(day);
+var moment = require('moment'); 
 
 function convertDate(date) {
     let dateConverted = "";
-    const dateNew = date.split('-').map(Number);
-    // console.log(dateNew);
 
-    if (dateNew.length !== 3) {
-        console.log('format tanggal tidak valid');
-        return
-    } else if (dateNew[0] > 31 || dateNew[1] > 12 || dateNew[2] > 2026) {
-        console.log('format tanggal tidak valid');
-        return
-    } else{
-       dateConverted = new moment(date).format('DD/MM/yyyy')
-       console.log("Tanggal baru: ", dateConverted);
-       return
+    if (typeof date !== 'string') {
+        console.log('Harus berupa string'); 
+        return; 
+    }
+
+    const dateNew = date.split('-').map(Number); 
+
+    if (dateNew.length !== 3 || isNaN(dateNew[0]) || isNaN(dateNew[1]) || isNaN(dateNew[2])) {
+        console.log('Format tanggal tidak valid');
+        return;
     }
     
+    const [day, month, year] = dateNew; 
+
+
+    if (day < 1 || day > 31 || month < 1 || month > 12 ) {
+        console.log('Format tanggal tidak valid');
+        return;
+    }
+    
+    dateConverted = moment(date).format('DD/MM/YYYY');
+    // console.log("Tanggal baru: ", dateConverted);
+    return dateConverted; 
 }
 
 
-date1 = '01-01-2026';
-console.log(convertDate(date1));
+// const date1 = '01-01-2026';
+// console.log(convertDate(date1)); 
 
-date2 = '2027-01-01';
-console.log(convertDate(date2));
+// const date3 = '01';
+// console.log(convertDate(date3)); 
 
-date3 = '01';
-console.log(convertDate(date3));
+// const date4 = 1; 
+// console.log(convertDate(date4)); 
 
-date4 = 1;
-console.log(convertDate(date4));
+const date4 = true; 
+console.log(convertDate(date4)); 
 
-date5 = '01-01-2027';
-console.log(convertDate(date5));
-
+// const date5 = '01-01-2027';
+// console.log(convertDate(date5)); 
